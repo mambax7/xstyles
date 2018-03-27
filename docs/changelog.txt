@@ -1,0 +1,27 @@
+<h5>1.03 Beta 1    [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
+<hr>
+- namespaces, autoloading (mamba)
+WORK IN PROGRESS
+
+<h5>1.03 ( for xoops 2.4.x )</h5>
+<hr>
+- Add "u" tag (kris_fr)
+
+
+<h5>1.02 ( for xoops 2.4.x )</h5>
+<hr>
+- Add class tag for extras.css - see "extras" folder for style sheet example (kris_fr)
+
+
+<h5>1.01 ( for xoops 2.4.x )</h5>
+<hr>
+- Add form tag : fielset, legend, form (kris_fr)
+- Add content tag : p, abbr, dfn, acronym, cite, address (kris_fr)
+- Update table tag : thead,tfoot, tbody (kris_fr)
+- complete extras class : shadow (kris_fr)
+- Cleaning code php in header (kris_fr)
+
+
+<h5>1.0 ( for xoops 2.4.x )</h5>
+<hr>
+- initial work (burning)
