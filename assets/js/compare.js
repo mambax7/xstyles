@@ -73,7 +73,7 @@
                             const example = child.querySelector('.xs-example');
                             if (example) {
                                 const view = frame.contentWindow;
-                                const margin = parseFloat(view.getComputedStyle(example).scrollMarginBlockStart) || 0;
+                                const margin = Number.parseFloat(view.getComputedStyle(example).scrollMarginBlockStart) || 0;
                                 // scrollIntoView also scrolls ancestor frames, hiding the outer toolbar.
                                 view.scrollTo({ top: view.scrollY + example.getBoundingClientRect().top - margin, behavior: 'instant' });
                             }

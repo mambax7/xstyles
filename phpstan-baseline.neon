@@ -1,0 +1,727 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to method displayAbout\(\) on an unknown class Xmf\\Module\\Admin\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/about.php
+
+		-
+			message: '#^Call to method displayNavigation\(\) on an unknown class Xmf\\Module\\Admin\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/about.php
+
+		-
+			message: '#^Call to static method setPaypal\(\) on an unknown class Xmf\\Module\\Admin\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/about.php
+
+		-
+			message: '#^Function xoops_cp_header not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: admin/about.php
+
+		-
+			message: '#^PHPDoc tag @var for variable \$adminObject contains unknown class Xmf\\Module\\Admin\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/about.php
+
+		-
+			message: '#^Function xoops_cp_footer not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: admin/admin_footer.php
+
+		-
+			message: '#^Call to static method getInstance\(\) on an unknown class Xmf\\Module\\Admin\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/admin_header.php
+
+		-
+			message: '#^Variable \$helper might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: admin/admin_header.php
+
+		-
+			message: '#^Call to static method getGuis\(\) on an unknown class XoopsSystemCpanel\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/gallery.php
+
+		-
+			message: '#^Call to static method getInstance\(\) on an unknown class XoopsFormRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/gallery.php
+
+		-
+			message: '#^Call to static method getInstance\(\) on an unknown class XoopsSystemCpanel\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/gallery.php
+
+		-
+			message: '#^Call to static method getVar\(\) on an unknown class Xmf\\Request\.$#'
+			identifier: class.notFound
+			count: 3
+			path: admin/gallery.php
+
+		-
+			message: '#^Function xoops_cp_header not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: admin/gallery.php
+
+		-
+			message: '#^Function xoops_load not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: admin/gallery.php
+
+		-
+			message: '#^Variable \$adminObject might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: admin/gallery.php
+
+		-
+			message: '#^Variable \$helper might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: admin/gallery.php
+
+		-
+			message: '#^Variable \$xoTheme might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: admin/gallery.php
+
+		-
+			message: '#^Function xoops_cp_header not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: admin/index.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, string\|false given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: admin/index.php
+
+		-
+			message: '#^Variable \$adminObject might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: admin/index.php
+
+		-
+			message: '#^Variable \$helper might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: admin/index.php
+
+		-
+			message: '#^Variable \$xoTheme might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: admin/index.php
+
+		-
+			message: '#^Call to static method menuIconPath\(\) on an unknown class Xmf\\Module\\Admin\.$#'
+			identifier: class.notFound
+			count: 1
+			path: admin/menu.php
+
+		-
+			message: '#^Function xoops_loadLanguage not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: admin/menu.php
+
+		-
+			message: '#^Access to property \$caching on an unknown class XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 4
+			path: class/Fixtures.php
+
+		-
+			message: '#^Access to property \$columns on an unknown class XoopsFormCheckBox\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Access to property \$url on an unknown class XoopsPageNav\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method addElement\(\) on an unknown class XoopsFormElementTray\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method addElement\(\) on an unknown class XoopsThemeForm\.$#'
+			identifier: class.notFound
+			count: 21
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method addOption\(\) on an unknown class XoopsFormSelect\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method addOptionArray\(\) on an unknown class XoopsFormCheckBox\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method addOptionArray\(\) on an unknown class XoopsFormRadio\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method addOptionArray\(\) on an unknown class XoopsFormSelect\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method assign\(\) on an unknown class XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 22
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method fetch\(\) on an unknown class XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 7
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method getCaption\(\) on an unknown class XoopsFormCheckBox\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method getTemplateVars\(\) on an unknown class XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method registerPlugin\(\) on an unknown class XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method render\(\) on an unknown class XoopsThemeForm\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method renderImageNav\(\) on an unknown class XoopsPageNav\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method renderNav\(\) on an unknown class XoopsPageNav\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method renderSelect\(\) on an unknown class XoopsPageNav\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method setDescription\(\) on an unknown class XoopsFormFile\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method setDescription\(\) on an unknown class XoopsFormText\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method setExtra\(\) on an unknown class XoopsFormText\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method setExtra\(\) on an unknown class XoopsThemeForm\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to method unregisterPlugin\(\) on an unknown class XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Call to static method getInstance\(\) on an unknown class MyTextSanitizer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Function xoops_error not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Function xoops_load not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Function xoops_result not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Function xoops_warning not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormButton not found\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormCheckBox not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormEditor not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormElementTray not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormFile not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormHidden not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormLabel not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormPassword not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormRadio not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormSelect not found\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormText not found\.$#'
+			identifier: class.notFound
+			count: 6
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormTextArea not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsFormTextDateSelect not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsPageNav not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsThemeForm not found\.$#'
+			identifier: class.notFound
+			count: 3
+			path: class/Fixtures.php
+
+		-
+			message: '#^Instantiated class XoopsTpl not found\.$#'
+			identifier: class.notFound
+			count: 2
+			path: class/Fixtures.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Fixtures\:\:theme\(\) has parameter \$definitions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Fixtures\:\:theme\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Only booleans are allowed in a ternary operator condition, int\|false given\.$#'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Parameter \$template of method XoopsModules\\Xstyles\\Fixtures\:\:blockForm\(\) has invalid type XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Parameter \$template of method XoopsModules\\Xstyles\\Fixtures\:\:build\(\) has invalid type XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Parameter \$template of method XoopsModules\\Xstyles\\Fixtures\:\:comment\(\) has invalid type XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Parameter \$template of method XoopsModules\\Xstyles\\Fixtures\:\:menu\(\) has invalid type XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Parameter \$template of method XoopsModules\\Xstyles\\Fixtures\:\:notifications\(\) has invalid type XoopsTpl\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/Fixtures.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:choice\(\) has parameter \$allowed with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:previewState\(\) has parameter \$input with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:previewState\(\) has parameter \$themes with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:previewState\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:sections\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:state\(\) has parameter \$input with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:state\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:themes\(\) has parameter \$allowed with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:themes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:zoneBlocks\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\Gallery\:\:zoneNames\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Only booleans are allowed in &&, int\|false given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: class/Gallery.php
+
+		-
+			message: '#^Access to an undefined property XoopsModules\\Xstyles\\Helper\:\:\$dirname\.$#'
+			identifier: property.notFound
+			count: 1
+			path: class/Helper.php
+
+		-
+			message: '#^Call to an undefined method XoopsModules\\Xstyles\\Helper\:\:setDebug\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: class/Helper.php
+
+		-
+			message: '#^Call to an undefined static method Xmf\\Module\\Helper\:\:__construct\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: class/Helper.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: class/Helper.php
+
+		-
+			message: '#^Call to function class_exists\(\) with ''XoopsFormRendererBo…''\|''XoopsFormRendererLe…'' will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: class/LegacyFixtureRenderer.php
+
+		-
+			message: '#^Call to static method getInstance\(\) on an unknown class XoopsFormRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: class/LegacyFixtureRenderer.php
+
+		-
+			message: '#^Function xoops_load not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: class/LegacyFixtureRenderer.php
+
+		-
+			message: '#^Anonymous function should return string but returns string\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: class/SpecimenMarkup.php
+
+		-
+			message: '#^Construct empty\(\) is not allowed\. Use more strict comparison\.$#'
+			identifier: empty.notAllowed
+			count: 2
+			path: class/SpecimenMarkup.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\SpecimenMarkup\:\:attributes\(\) should return string but returns string\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: class/SpecimenMarkup.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\SpecimenMarkup\:\:missingLabelTargets\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/SpecimenMarkup.php
+
+		-
+			message: '#^Offset 0 might not exist on array\{\}\|array\{non\-falsy\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: class/SpecimenMarkup.php
+
+		-
+			message: '#^Only booleans are allowed in &&, int\|false given on the right side\.$#'
+			identifier: booleanAnd.rightNotBoolean
+			count: 1
+			path: class/SpecimenMarkup.php
+
+		-
+			message: '#^Parameter \#1 \$string of function substr_replace expects array\|string, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: class/SpecimenMarkup.php
+
+		-
+			message: '#^Method XoopsModules\\Xstyles\\ThemeSpecimens\:\:load\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: class/ThemeSpecimens.php
+
+		-
+			message: '#^Only booleans are allowed in a negated boolean, int\|false given\.$#'
+			identifier: booleanNot.exprNotBoolean
+			count: 3
+			path: class/ThemeSpecimens.php
+
+		-
+			message: '#^Call to an undefined method XoopsModules\\Xstyles\\Helper\:\:loadLanguage\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: include/common.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$blocks\.$#'
+			identifier: property.notFound
+			count: 2
+			path: index.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getGroups\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getVar\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: index.php
+
+		-
+			message: '#^Call to an undefined method object\:\:isAdmin\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Call to static method getInstance\(\) on an unknown class XoopsFormRenderer\.$#'
+			identifier: class.notFound
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Call to static method getInstance\(\) on an unknown class XoopsModules\\Cssholmes\\Helper\.$#'
+			identifier: class.notFound
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Call to static method getVar\(\) on an unknown class Xmf\\Request\.$#'
+			identifier: class.notFound
+			count: 3
+			path: index.php
+
+		-
+			message: '#^Constant XOOPS_THEME_PATH not found\.$#'
+			identifier: constant.notFound
+			count: 2
+			path: index.php
+
+		-
+			message: '#^Constant XOOPS_THEME_URL not found\.$#'
+			identifier: constant.notFound
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Function xoops_getHandler not found\.$#'
+			identifier: function.notFound
+			count: 2
+			path: index.php
+
+		-
+			message: '#^Function xoops_load not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Implicit array creation is not allowed \- variable \$xoopsConfig might not exist\.$#'
+			identifier: variable.implicitArray
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Implicit array creation is not allowed \- variable \$xoopsModuleConfig might not exist\.$#'
+			identifier: variable.implicitArray
+			count: 1
+			path: index.php
+
+		-
+			message: '#^Variable \$xoTheme might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: index.php
+
+		-
+			message: '#^Method XstylesCorePreload\:\:eventCoreIncludeCommonEnd\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: preloads/core.php
+
+		-
+			message: '#^Implicit array creation is not allowed \- variable \$modversion might not exist\.$#'
+			identifier: variable.implicitArray
+			count: 1
+			path: xoops_version.php

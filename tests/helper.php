@@ -13,7 +13,7 @@ final class XoopsDatabaseFactory
 {
     public static function getDatabaseConnection(): object
     {
-        static $connection;
+        static $connection = null;
 
         return $connection ??= new stdClass();
     }
