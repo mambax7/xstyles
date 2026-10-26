@@ -17,20 +17,25 @@ final class Fixtures
     /**
      * The public gallery uses fixed data; rendering never invokes block callbacks or writes content.
      *
-     * @return array<array{id:string, section:string, title:string, selector:string, html:string}>
+     * @return array<array{id:string, section:string, title:string, selector:string, html:string, issues:array<string>}>
      */
     public static function build(string $section, \XoopsTpl $template, string $moduleUrl, string $renderer = 'theme'): array
     {
         $samples = [];
-        $specimens = [
-            'bs5-buttons' => ['bootstrap5', _MD_XSTYLES_BS5_BUTTONS, '.btn, .badge', 'bootstrap5'],
-            'bs5-alerts' => ['bootstrap5', _MD_XSTYLES_BS5_ALERTS, '.alert, .card', 'bootstrap5'],
-            'bs5-navigation' => ['bootstrap5', _MD_XSTYLES_BS5_NAVIGATION, '.breadcrumb, .pagination', 'bootstrap5'],
-            'bs5-inputs' => ['bootstrap5', _MD_XSTYLES_BS5_INPUTS, '.input-group, .form-control, .is-valid, .is-invalid', 'bootstrap5'],
-            'bs5-tabs' => ['bootstrap5', _MD_XSTYLES_BS5_TABS, '.nav-tabs, .tab-pane, .accordion', 'bootstrap5'],
-            'bs5-dropdown' => ['bootstrap5', _MD_XSTYLES_BS5_DROPDOWN, '.dropdown', 'bootstrap5'],
-            'bs5-modal' => ['bootstrap5', _MD_XSTYLES_BS5_MODAL, '.modal', 'bootstrap5'],
-            'bs5-toast' => ['bootstrap5', _MD_XSTYLES_BS5_TOAST, '.toast', 'bootstrap5'],
+        $bootstrap5 = [];
+        if ($section === 'all' || $section === 'bootstrap5') {
+            $bootstrap5 = [
+                'bs5-buttons' => ['bootstrap5', _MD_XSTYLES_BS5_BUTTONS, '.btn, .badge', 'bootstrap5'],
+                'bs5-alerts' => ['bootstrap5', _MD_XSTYLES_BS5_ALERTS, '.alert, .card', 'bootstrap5'],
+                'bs5-navigation' => ['bootstrap5', _MD_XSTYLES_BS5_NAVIGATION, '.breadcrumb, .pagination', 'bootstrap5'],
+                'bs5-inputs' => ['bootstrap5', _MD_XSTYLES_BS5_INPUTS, '.input-group, .form-control, .is-valid, .is-invalid', 'bootstrap5'],
+                'bs5-tabs' => ['bootstrap5', _MD_XSTYLES_BS5_TABS, '.nav-tabs, .tab-pane, .accordion', 'bootstrap5'],
+                'bs5-dropdown' => ['bootstrap5', _MD_XSTYLES_BS5_DROPDOWN, '.dropdown', 'bootstrap5'],
+                'bs5-modal' => ['bootstrap5', _MD_XSTYLES_BS5_MODAL, '.modal', 'bootstrap5'],
+                'bs5-toast' => ['bootstrap5', _MD_XSTYLES_BS5_TOAST, '.toast', 'bootstrap5'],
+            ];
+        }
+        $specimens = $bootstrap5 + [
             'bs6-buttons' => ['bootstrap6', _MD_XSTYLES_BS6_BUTTONS, '.btn-solid, .btn-outline, .theme-primary, .badge', 'bootstrap6'],
             'bs6-cards' => ['bootstrap6', _MD_XSTYLES_BS6_CARDS, '.alert, .card', 'bootstrap6'],
             'bs6-forms' => ['bootstrap6', _MD_XSTYLES_BS6_FORMS, '.field, .form-control, .is-valid, .is-invalid', 'bootstrap6'],
@@ -353,22 +358,34 @@ final class Fixtures
     private static function inertTemplate(string $html, string $kind, string $moduleUrl): string
     {
         require_once __DIR__ . '/SpecimenMarkup.php';
-        // New theme specimens must not collide with wrapper IDs such as <sample>-source or <sample>-title.
+        // Keep IDs inside theme specimens separate from wrapper and control IDs.
         $prefix = 'xs-' . $kind . (str_starts_with($kind, 'theme-') ? '_' : '-');
+        $cssReferences = static fn (string $css): string => preg_replace_callback(
+            '~\burl\(\s*(["\']?)\#([^\s"\'()]+)\1\s*\)~i',
+            static fn (array $reference): string => 'url(' . $reference[1] . '#' . $prefix . $reference[2] . $reference[1] . ')',
+            $css
+        ) ?? throw new \RuntimeException('Unable to scope specimen CSS references.');
 
-        return SpecimenMarkup::attributes($html, static function (string $name, string $value) use ($prefix, $kind): string|false|null {
+        return SpecimenMarkup::attributes($html, static function (string $name, string $value, string $element) use ($prefix, $kind, $cssReferences): string|false|null {
             if (str_starts_with($name, 'on') || in_array($name, ['action', 'formaction', 'data-xs-demo-form'], true)) {
                 return null;
             }
+            if (in_array($name, ['href', 'xlink:href'], true)) {
+                $svgReference = in_array($element, ['use', 'image', 'feimage', 'lineargradient', 'radialgradient', 'pattern', 'textpath', 'mpath', 'animate', 'animatemotion', 'animatetransform', 'set'], true);
+
+                return $svgReference && str_starts_with($value, '#') ? '#' . $prefix . substr($value, 1) : '#xs-' . $kind;
+            }
+            if (in_array($name, ['style', 'fill', 'stroke', 'filter', 'clip-path', 'mask', 'marker', 'marker-start', 'marker-mid', 'marker-end', 'cursor'], true)) {
+                return $cssReferences($value);
+            }
 
             return match ($name) {
-                'href' => '#xs-' . $kind,
                 'id', 'name', 'list', 'form', 'aria-activedescendant' => $prefix . $value,
                 'for', 'aria-labelledby', 'aria-describedby', 'aria-controls', 'aria-details', 'aria-errormessage', 'aria-owns', 'aria-flowto', 'headers' => preg_replace('/\S+/', $prefix . '$0', $value),
                 'data-bs-target', 'data-bs-parent' => preg_match('/^#[a-zA-Z][\w:-]*$/D', $value) ? '#' . $prefix . substr($value, 1) : false,
                 default => false,
             };
-        }, $moduleUrl . '/index.php');
+        }, $moduleUrl . '/index.php', $cssReferences);
     }
 
     private static function comment(\XoopsTpl $template, string $moduleUrl, string $id = 'xs-fixture'): void
