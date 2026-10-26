@@ -186,8 +186,8 @@ The public gallery and **Admin styles** share the same navigation, rounded contr
 and HTML source panels. Choose a category, then an element in the navigator to
 focus its preview. Search filters the current category; Escape clears the search.
 **Preview details** contains the theme, language and renderer information.
-Use **Single preview** or **Compare themes** to change workspace views. Returning
-to Single preview retains the selected element. Without JavaScript, all examples
+Use **Single preview** or, where available, **Compare themes** to change workspace
+views. Returning to Single preview retains the selected element. Without JavaScript, all examples
 remain available as a normal page. Workspace styling does not restyle the example
 forms or buttons: those continue to show the selected theme's actual appearance.
 
@@ -199,7 +199,9 @@ but omit the editors and comparison controls. They do not show an unsaved parent
 draft. Close the control to unload frames; refresh after publishing. If the site
 blocks frames, use **Open preview**. Responsive frames retain the selected preview theme.
 
-**Compare themes** is available in both the public gallery and **Admin styles**.
+**Compare themes** is available in **Admin styles** on both tested cores, XOOPS
+2.7.4 and 2.8. Public-gallery comparison requires a core providing
+`xoops_resolveModuleTheme`, such as XOOPS 2.8; it is unavailable on XOOPS 2.7.4.
 Choose two themes, one element section and an equal 360/768/1280 CSS-pixel width.
 The independently styled panes scroll to the first example and stack on narrow
 screens. They show published styles, suppress editor/comparison controls, and
