@@ -31,7 +31,7 @@
         <button id="xs-bs6-details-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#xs-bs6-details-pane" type="button" role="tab" aria-controls="xs-bs6-details-pane" aria-selected="true"><{$smarty.const._MD_XSTYLES_BS5_DETAILS|escape}></button>
         <button id="xs-bs6-discussion-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#xs-bs6-discussion-pane" type="button" role="tab" aria-controls="xs-bs6-discussion-pane" aria-selected="false" tabindex="-1"><{$smarty.const._MD_XSTYLES_BS5_DISCUSSION|escape}></button>
     </div>
-    <div class="tab-content"><div id="xs-bs6-details-pane" class="tab-pane active show" role="tabpanel" aria-labelledby="xs-bs6-details-tab" tabindex="0"><p><{$smarty.const._MD_XSTYLES_BODY_TEXT|escape}></p></div><div id="xs-bs6-discussion-pane" class="tab-pane" role="tabpanel" aria-labelledby="xs-bs6-discussion-tab" tabindex="0"><p><{$smarty.const._MD_XSTYLES_COMMENT_TEXT|escape}></p></div></div>
+    <div class="tab-content"><div id="xs-bs6-details-pane" class="tab-pane active show" role="tabpanel" aria-labelledby="xs-bs6-details-tab" tabindex="0"><p><{$smarty.const._MD_XSTYLES_BODY_TEXT|escape}></p></div><div id="xs-bs6-discussion-pane" class="tab-pane" role="tabpanel" aria-labelledby="xs-bs6-discussion-tab" tabindex="0"><p><{$smarty.const._MD_XSTYLES_BODY_TEXT|escape}></p></div></div>
 </div>
 <{elseif $xs_fixture_kind == 'bs6-menu'}>
 <div data-xs-bootstrap6="Menu">

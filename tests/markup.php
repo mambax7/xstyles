@@ -44,3 +44,17 @@ foreach (['title', 'xmp', 'iframe', 'noembed', 'noframes', 'noscript'] as $eleme
         throw new RuntimeException('Raw HTML text changed: ' . $element);
     }
 }
+$svg = <<<'HTML'
+<svg><defs><linearGradient id="gradient"></linearGradient><mask id="mask"></mask><path id="shape"></path></defs>
+<style>.paint { fill: url('#gradient'); } .external { fill: url(https://example.invalid/art.svg#gradient); }</style>
+<use href="#shape" fill="url(#gradient)" style="mask: url(&quot;#mask&quot;)"></use>
+<use xlink:href="#shape"></use><a href="#shape">Navigation</a><a xlink:href="#shape">Legacy navigation</a></svg>
+<script>const reference = 'url(#gradient)';</script><p>url(#gradient)</p>
+HTML;
+$svgResult = $inert->invoke(null, $svg, 'theme-card', 'https://example.invalid/modules/xstyles');
+foreach (['href="#xs-theme-card_shape"', 'xlink:href="#xs-theme-card_shape"', 'fill="url(#xs-theme-card_gradient)"', 'url(&quot;#xs-theme-card_mask&quot;)', "url('#xs-theme-card_gradient')", 'url(https://example.invalid/art.svg#gradient)', '<a href="#xs-theme-card">', '<a xlink:href="#xs-theme-card">', "const reference = 'url(#gradient)';", '<p>url(#gradient)</p>'] as $expected) {
+    if (! str_contains($svgResult, $expected)) {
+        throw new RuntimeException('SVG reference rewrite lost: ' . $expected);
+    }
+}
+echo "SVG references: local fragments, presentation attributes, inline/style CSS and inert navigation passed.\n";
