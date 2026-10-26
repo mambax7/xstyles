@@ -35,7 +35,7 @@ class Helper extends \Xmf\Module\Helper
 
     public static function getInstance(bool $debug = false): self
     {
-        static $instance;
+        static $instance = null;
         $instance ??= new static($debug);
 
         return $instance;

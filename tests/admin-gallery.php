@@ -36,7 +36,7 @@ class XoopsSystemCpanel
 
     public static function getInstance(): self
     {
-        static $instance;
+        static $instance = null;
 
         return $instance ??= new self();
     }

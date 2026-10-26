@@ -51,7 +51,7 @@ assert.ok(['chromium', 'firefox'].includes(engine));
         assert.equal(await page.locator('.xs-example').count(), 5);
         await page.locator('.xs-source > summary').first().click();
         for (const selector of ['.xs-source pre', '[data-xs-copy]']) {
-            assert.ok(await page.locator(selector).first().evaluate(node => parseFloat(getComputedStyle(node).borderTopLeftRadius) >= 6), 'Source panels and buttons share rounded corners');
+            assert.ok(await page.locator(selector).first().evaluate(node => Number.parseFloat(getComputedStyle(node).borderTopLeftRadius) >= 6), 'Source panels and buttons share rounded corners');
         }
         await page.locator('[data-xs-copy]').first().click();
         assert.ok((await page.evaluate(() => window.copiedSource)).includes('<form'));
