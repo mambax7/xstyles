@@ -8,7 +8,7 @@ const engine = process.env.XSTYLES_BROWSER || 'chromium';
 const base = process.env.XSTYLES_TEST_URL;
 if (!base) throw new Error('Set XSTYLES_TEST_URL to the public gallery.');
 (async () => {
-    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' ? { executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}) });
+    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' && process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
     try {
         const context = await browser.newContext({ viewport: { width: 1500, height: 1050 } });
         const page = await context.newPage(), errors = [], writes = [];

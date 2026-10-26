@@ -4,7 +4,7 @@ const path = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 if (!process.env.XSTYLES_TEST_URL) throw new Error('Set XSTYLES_TEST_URL to the reviewed gallery URL.');
 (async () => {
-    const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+    const browser = await chromium.launch({ headless: true, ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
     try {
         for (const theme of ['xbootstrap5', 'mytheme']) {
             const context = await browser.newContext({ viewport: { width: 1280, height: 900 }, colorScheme: 'light' });

@@ -6,7 +6,7 @@ const playwright = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const engine = process.env.XSTYLES_BROWSER || 'chromium';
 if (!process.env.XSTYLES_TEST_URL) throw new Error('Set XSTYLES_TEST_URL to the reviewed gallery URL.');
 (async () => {
-    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' ? { executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}) });
+    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' && process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
     try {
         for (const theme of (process.env.XSTYLES_TEST_THEMES || 'xbootstrap5,mytheme6,argon6').split(',')) {
             const context = await browser.newContext({ viewport: { width: 1280, height: 960 } });

@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '..');
 const rendered = JSON.parse(execFileSync(process.env.PHP_BINARY || 'php', [path.join(__dirname, 'render-gallery.php'), process.env.XSTYLES_CORE || path.resolve(__dirname, '../../..')], { encoding: 'utf8' }));
 const asset = relative => fs.readFileSync(path.join(root, relative), 'utf8');
 (async () => {
-    const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+    const browser = await chromium.launch({ headless: true, ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
     try {
         const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
         await page.addInitScript(() => Object.defineProperty(navigator, 'clipboard', { value: { writeText: async text => { window.copiedSource = text; } } }));
@@ -44,6 +44,10 @@ const asset = relative => fs.readFileSync(path.join(root, relative), 'utf8');
         assert.equal(await page.locator('iframe').evaluateAll(frames => frames.every(f => !new URL(f.src).searchParams.has('xoops_theme_select'))), true);
         await page.locator('[data-xs-refresh]').click();
         await page.waitForFunction(() => [...document.querySelectorAll('iframe')].every(f => f.contentDocument?.querySelector('#xs-gallery')));
+        await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
+        assert.equal(await page.locator('iframe').count(), 0);
+        await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+        await page.waitForFunction(() => document.querySelectorAll('iframe').length === 3);
         await page.locator('[data-xs-responsive] > summary').click();
         await page.waitForFunction(() => !document.querySelector('iframe'));
         await page.locator('#xs-filter').fill('Core form tabs');
@@ -55,7 +59,11 @@ const asset = relative => fs.readFileSync(path.join(root, relative), 'utf8');
         assert.equal(await tabs.nth(1).getAttribute('aria-selected'), 'true');
         await page.locator('#xs_tabs_required').fill('Preview only');
         // Every generated form is intercepted even when a renderer adds its own handlers.
-        await page.locator('form[data-xs-demo-form]').first().evaluate(form => form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })));
+        assert.equal(await page.locator('form[data-xs-demo-form]').first().evaluate(form => {
+            const event = new Event('submit', { bubbles: true, cancelable: true });
+            form.dispatchEvent(event);
+            return event.defaultPrevented;
+        }), true, 'Demo form submission must be cancelled');
         assert.deepEqual(writes, []);
         assert.deepEqual(errors, []);
         // Explicit mode previews keep all documented conventions consistent.

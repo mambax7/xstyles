@@ -111,7 +111,7 @@ async function check(mode) {
 
 let browser;
 (async () => {
-    browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
+    browser = await chromium.launch({ ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}), headless: true });
     try {
         for (const mode of ['present', 'absent', 'incompatible']) await check(mode);
     } finally { await browser.close(); }

@@ -23,7 +23,7 @@ function xoops_module_pre_update_xstyles(\XoopsModule $module): bool
     return true;
 }
 
-function xoops_module_update_xstyles(\XoopsModule $module, int|string|null $previousVersion = null): bool
+function xoops_module_update_xstyles(\XoopsModule $module, int|float|string|null $previousVersion = null): bool
 {
     return true;
 }
