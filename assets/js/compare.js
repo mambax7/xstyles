@@ -9,6 +9,7 @@
         const width = controls.querySelector('[data-xs-compare-width]');
         const panes = [...controls.querySelectorAll('[data-xs-compare-pane]')];
         const timers = new Set();
+        let generation = 0;
         const options = [...choices[1].options].filter(option => option.value !== choices[0].value);
         const other = options.find(option => option.value === controls.dataset.xsActiveTheme) || options[0];
         if (other) choices[1].value = other.value;
@@ -18,12 +19,14 @@
             return url.href;
         }
         function clear() {
+            ++generation;
             timers.forEach(clearTimeout);
             timers.clear();
             panes.forEach(pane => pane.querySelector('[data-xs-compare-frame]').replaceChildren());
         }
         function render() {
             clear();
+            const currentGeneration = generation;
             if (!controls.open) return;
             const base = new URL(controls.dataset.xsPreviewUrl, location.href);
             if (base.origin !== location.origin || !/\/(?:index|admin\/gallery)\.php$/.test(base.pathname)
@@ -47,9 +50,12 @@
                 frame.height = '720';
                 frame.style.width = `${pixels}px`;
                 frame.style.minWidth = `${pixels}px`;
-                const timeout = setTimeout(() => { status.textContent = controls.dataset.xsFrameError; }, 15000);
+                const timeout = setTimeout(() => {
+                    if (currentGeneration === generation) status.textContent = controls.dataset.xsFrameError;
+                }, 15000);
                 timers.add(timeout);
                 frame.addEventListener('load', () => {
+                    if (currentGeneration !== generation) return;
                     clearTimeout(timeout);
                     timers.delete(timeout);
                     try {
@@ -79,9 +85,18 @@
             });
         }
         controls.addEventListener('toggle', render);
-        controls.addEventListener('change', render);
+        controls.addEventListener('change', event => {
+            const index = choices.indexOf(event.target);
+            if (index !== -1 && choices[0].value === choices[1].value) {
+                const opposite = choices[1 - index];
+                const alternative = [...opposite.options].find(option => option.value !== event.target.value);
+                if (alternative) opposite.value = alternative.value;
+            }
+            render();
+        });
         controls.querySelector('[data-xs-compare-refresh]').addEventListener('click', render);
         window.addEventListener('pagehide', clear);
+        window.addEventListener('pageshow', event => { if (event.persisted) render(); });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
     else init();

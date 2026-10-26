@@ -7,7 +7,7 @@ const playwright = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const engine = process.env.XSTYLES_BROWSER || 'chromium';
 assert.ok(['chromium', 'firefox'].includes(engine), 'Use chromium or firefox');
 const [command, first, second] = process.argv.slice(2);
-const options = { headless: true, ...(engine === 'chromium' ? { executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}) };
+const options = { headless: true, ...(engine === 'chromium' && process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) };
 
 async function comparePixels(page, before, after) {
     return page.evaluate(async ([a, b]) => {

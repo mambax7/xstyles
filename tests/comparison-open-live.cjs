@@ -4,7 +4,7 @@ const playwright = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const engine = process.env.XSTYLES_BROWSER || 'chromium';
 if (!process.env.XSTYLES_TEST_URL) throw new Error('Set XSTYLES_TEST_URL to the gallery.');
 (async () => {
-    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}) });
+    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' && process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
     try {
         const page = await browser.newPage({ viewport: { width: 2048, height: 800 } });
         const directory = new URL('./', process.env.XSTYLES_TEST_URL);

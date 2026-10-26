@@ -10,7 +10,7 @@ final class CoreScriptsTest extends ScriptTestCase
     /** @return iterable<string, array{string}> */
     public static function scripts(): iterable
     {
-        foreach (['fixtures.php', 'admin-gallery.php', 'admin-home.php', 'admin-theme-loader.php'] as $script) {
+        foreach (['fixtures.php', 'admin-gallery.php', 'admin-home.php', 'admin-theme-loader.php', 'helper.php'] as $script) {
             yield $script => [$script];
         }
     }
