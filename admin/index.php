@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -10,47 +10,35 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
+ * @copyright    2000-2026 XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author       XOOPS Development Team
  */
 
-use XoopsModules\Xstyles;
-use XoopsModules\Xstyles\Common;
-
 require_once __DIR__ . '/admin_header.php';
-// Display Admin header
+
 xoops_cp_header();
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation(basename(__FILE__));
 
-//check or upload folders
-$configurator = new Common\Configurator();
-foreach (array_keys($configurator->uploadFolders) as $i) {
-    $utility::createFolder($configurator->uploadFolders[$i]);
-    $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
-}
+$escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+echo '<h2>' . $escape(_AM_XSTYLES_OVERVIEW) . '</h2>';
+echo '<p>' . $escape(_AM_XSTYLES_OVERVIEW_DESC) . '</p>';
 
-//------------- Test Data ----------------------------
-
-if ($helper->getConfig('displaySampleButton')) {
-    xoops_loadLanguage('admin/modulesadmin', 'system');
-    require_once __DIR__ . '/../testdata/index.php';
-
-    $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
-
-    $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
-
-    //    $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');
-
-    $adminObject->displayButton('left', '');
-}
-
-//------------- End Test Data ----------------------------
-
+$xoTheme->addStylesheet($helper->url('assets/css/admin-home.css'));
+echo '<div id="xs-admin-home">';
 $adminObject->displayIndex();
-
-echo $utility::getServerStats();
+echo '</div>';
+$adminObject->addInfoBox($escape(_AM_XSTYLES_SERVER_STATUS));
+foreach ([
+    _AM_XSTYLES_GD => function_exists('gd_info') ? _AM_XSTYLES_ENABLED : _AM_XSTYLES_DISABLED,
+    _AM_XSTYLES_UPLOADS => ini_get('file_uploads') ? _AM_XSTYLES_ENABLED : _AM_XSTYLES_DISABLED,
+    _AM_XSTYLES_UPLOAD_LIMIT => (string) ini_get('upload_max_filesize'),
+    _AM_XSTYLES_POST_LIMIT => (string) ini_get('post_max_size'),
+    _AM_XSTYLES_MEMORY_LIMIT => ini_get('memory_limit'),
+    _AM_XSTYLES_SERVER_PATH => XOOPS_ROOT_PATH,
+] as $label => $value) {
+    $adminObject->addInfoBoxLine($escape($label) . ': <strong>' . $escape($value) . '</strong>', 'information');
+}
+$adminObject->displayInfoBox();
 
 require_once __DIR__ . '/admin_footer.php';
-

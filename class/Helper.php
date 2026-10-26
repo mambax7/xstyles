@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Xstyles;
+<?php declare(strict_types=1);
+
+namespace XoopsModules\Xstyles;
 
 /*
  * You may not change or alter any portion of this comment or credits
@@ -11,68 +13,44 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
+ * @copyright    2000-2026 XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author       XOOPS Development Team
  */
-//defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Helper
  */
 class Helper extends \Xmf\Module\Helper
 {
+    /** @var bool Public for compatibility with existing module integrations. */
     public $debug;
 
-    /**
-     * @internal param $debug
-     * @param bool $debug
-     */
-    protected function __construct($debug = false)
+    public function __construct(bool $debug = false)
     {
-        $this->debug   = $debug;
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         parent::__construct($moduleDirName);
+        $this->setDebug($debug);
     }
 
-    /**
-     * @param bool $debug
-     *
-     * @return \XoopsModules\Xstyles\Helper
-     */
-    public static function getInstance($debug = false)
+    public static function getInstance(bool $debug = false): self
     {
         static $instance;
-        if (null === $instance) {
-            $instance = new static($debug);
-        }
+        $instance ??= new static($debug);
 
         return $instance;
     }
 
-    /**
-     * @return string
-     */
-    public function getDirname()
+    public function getDirname(): string
     {
         return $this->dirname;
     }
 
-    /**
-     * Get an Object Handler
-     *
-     * @param string $name name of handler to load
-     *
-     * @return bool|\XoopsObjectHandler|\XoopsPersistableObjectHandler
-     */
-    public function getHandler($name)
+    /** @param string $name */
+    public function getHandler($name): object
     {
-        $ret   = false;
-        $db    = \XoopsDatabaseFactory::getDatabaseConnection();
-        $class = '\\XoopsModules\\' . ucfirst(strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
-        $ret   = new $class($db);
-        return $ret;
+        $class = __NAMESPACE__ . '\\' . $name . 'Handler';
+
+        return new $class(\XoopsDatabaseFactory::getDatabaseConnection());
     }
 }

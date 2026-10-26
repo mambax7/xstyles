@@ -1,0 +1,5 @@
+/* Allow translated and multi-line tile labels without changing the shared admin component. */
+#xs-admin-home .rmmenuicon a {
+    block-size: auto !important;
+    min-block-size: 75px;
+}
