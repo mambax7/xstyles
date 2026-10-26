@@ -30,7 +30,7 @@ const asset = relative => fs.readFileSync(path.join(root, relative), 'utf8');
         await page.locator('[data-xs-example-link="xs-theme-card"]').click();
         await page.locator('#xs-theme-card .xs-source > summary').click();
         await page.locator('#xs-theme-card [data-xs-copy]').click();
-        assert.equal(await page.evaluate(() => window.copiedSource), await page.locator('#xs-theme-card-source').textContent());
+        assert.equal(await page.evaluate(() => window.copiedSource), await page.locator('#xs-source-xs-theme-card').textContent());
         assert.match(await page.evaluate(() => window.copiedSource), /<article/);
         assert.equal(await page.locator('iframe').count(), 0);
         await page.locator('[data-xs-responsive] > summary').click();
