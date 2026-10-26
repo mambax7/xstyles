@@ -17,6 +17,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   qa:
     uses: ./.github/workflows/ci.yml
@@ -48,4 +52,7 @@ jobs:
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
           files: ${{ steps.archive.outputs.zip }}
+          # Published version archives are immutable; corrections require a new tag.
+          overwrite_files: false
+          fail_on_unmatched_files: true
           generate_release_notes: true

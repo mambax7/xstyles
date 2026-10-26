@@ -84,6 +84,11 @@ namespace {
         public function add(CriteriaElement $criteriaElement, string $signe = 'AND'): void {}
     }
 
+    class XoopsDatabaseFactory
+    {
+        public static function getDatabaseConnection(): XoopsDatabase {}
+    }
+
     class XoopsDatabase
     {
         public function prefix(string $table = ''): string {}
