@@ -1,16 +1,17 @@
 <?php
 
-define('_AM_XSTYLES_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
-define('_AM_XSTYLES_UPGRADEFAILED1', "Update failed - couldn't add new fields");
-define('_AM_XSTYLES_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
-define('_AM_XSTYLES_ERROR_COLUMN', 'Could not create column in database : %s');
-define('_AM_XSTYLES_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
-define('_AM_XSTYLES_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
-define('_AM_XSTYLES_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
+declare(strict_types=1);
 
-define('_AM_XSTYLES_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
-
-// Error Msgs
-define('_AM_XSTYLES_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
-define('_AM_XSTYLES_ERROR_BAD_REMOVE', 'Could not delete %s');
-define('_AM_XSTYLES_ERROR_NO_PLUGIN', 'Could not load plugin');
+define('_AM_XSTYLES_OVERVIEW', 'Theme style guide');
+define('_AM_XSTYLES_OVERVIEW_DESC', 'Compare the active theme using repeatable examples of XOOPS typography, tables, forms, navigation, and module layouts. The gallery stores no content and requires no upload folders or module preferences.');
+define('_AM_XSTYLES_GALLERY', 'Admin theme styles');
+define('_AM_XSTYLES_GALLERY_NOTE', 'See how admin themes style common page elements. Use the theme links or Compare themes to preview the same sample content without activating another admin theme. Forms do not submit. Use Go to module to preview your site theme.');
+define('_AM_XSTYLES_SERVER_STATUS', 'Server status');
+define('_AM_XSTYLES_GD', 'GD library support');
+define('_AM_XSTYLES_UPLOADS', 'Server uploads');
+define('_AM_XSTYLES_UPLOAD_LIMIT', 'Maximum upload size (upload_max_filesize)');
+define('_AM_XSTYLES_POST_LIMIT', 'Maximum POST size (post_max_size)');
+define('_AM_XSTYLES_MEMORY_LIMIT', 'Memory limit (memory_limit; -1 means unlimited)');
+define('_AM_XSTYLES_SERVER_PATH', 'Server path to XOOPS root');
+define('_AM_XSTYLES_ENABLED', 'Enabled');
+define('_AM_XSTYLES_DISABLED', 'Disabled');

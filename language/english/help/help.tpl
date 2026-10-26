@@ -1,56 +1,67 @@
 <div id="help-template" class="outer">
     <{include file=$smarty.const._MI_XSTYLES_HELP_HEADER}>
-
-    <h4 class="odd">DESCRIPTION</h4> <br>
-
-    <p class="even">Use this module to display only the styles of the current theme <br>
-        The stylesheet "extras.css" in /extras is used to avoid coding in "hard" certain styles in the themes, templates, blocks, modules, etc. ... ....<br> <br>
-    </p>
+    <h4 class="odd">DESCRIPTION</h4><br>
+    <div class="even">
+    <p>A living style guide for XOOPS themes. Preview how the current theme styles every common page element. Repeatable examples help you check consistency, compare themes, and find layout problems without creating sample content.</p>
+    </div>
 
     <h4 class="odd">INSTALL/UNINSTALL</h4>
-
-    <p class="even">
-        No special measures necessary, follow the standard installation process –
-        extract the module folder into the ../modules directory. Install the
-        module through Admin -> System Module -> Modules.<br> <br>
-        Detailed instructions on installing modules are available in the
-        <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">Chapter 2.12 of our XOOPS Operations Manual</a></p>
-
+    <div class="even">
+    <p><strong>Requirements</strong></p>
+    <p>XOOPS 2.7 or later and PHP 8.2 or later. The gallery is also tested with XOOPS 2.8 and Smarty 5.</p>
+    <p><strong>Install, update, and uninstall</strong></p>
+    <p>Copy the xstyles folder into the XOOPS modules directory, then use System Administration &gt; Modules. xStyles has no database tables, custom permissions, upload folders, or preferences. Updates and uninstall callbacks leave historical files and uploads untouched.</p>
+    </div>
 
     <h4 class="odd">OPERATING INSTRUCTIONS</h4><br>
-    <p class="even">
-        This module and its operations are very simple.<br> <br>
-        Detailed instructions on configuring the access rights for user groups are available in the
-        <a href="https://www.gitbook.com/book/xoops/xoops-operations-guide/" target="_blank">Chapter 2.8 of our XOOPS Operations Manual</a><br> <br></p>
+    <div class="even">
+    <p><strong>Beginner: explore your theme</strong></p>
+    <ol>
+        <li>Use <strong>Go to module</strong> to open the frontend gallery, or <strong>Admin styles</strong> to inspect administration themes.</li>
+        <li>In <strong>Single preview</strong>, choose a category such as Typography, Tables, or Forms, then select an element in the navigator.</li>
+        <li>Use <strong>Find an example</strong> to search the current category. Press <strong>Escape</strong> to clear it; choose <strong>All elements</strong> to search the whole catalog.</li>
+        <li>Open <strong>Preview details</strong> to check the theme, language/direction, and form renderer.</li>
+    </ol>
+    <p>Use sample values only. Example forms do not save records or upload files, and example navigation links stay in the gallery.</p>
+    <br>
+    <p><strong>Advanced: test and compare themes</strong></p>
+    <ul>
+        <li><strong>Preview a theme:</strong> choose a frontend theme and click <strong>Apply preview</strong>, or choose an admin-theme link. <strong>Return to current theme</strong> leaves the temporary preview without activating another site-wide theme.</li>
+        <li><strong>Compare themes:</strong> click the button at the top of either gallery, choose two themes, then select a shared category and viewport width. Use <strong>Open preview</strong> for a full gallery in its own tab.</li>
+        <li><strong>Responsive preview:</strong> in the frontend, test 360, 768, and 1280-pixel widths, or compare all widths. Wider previews can require horizontal scrolling.</li>
+        <li><strong>Theme and layout previews:</strong> check form renderers, supported colour modes, direction, and populated or empty block zones. Direction simulation alone does not load an RTL language's stylesheets.</li>
+    </ul>
+    <p>Frontend theme switching and side-by-side theme comparison require the request-only module-theme override available in XOOPS 2.8. On XOOPS 2.7.4, use the current frontend theme with layout, renderer and responsive previews; admin theme selection and comparison remain available.</p>
+    <p>Bootstrap 5 and Bootstrap 6 Alpha examples use the selected theme's assets; xStyles does not install a framework. Bootstrap 6 examples target <code>6.0.0-alpha.1</code>.</p>
+    <br>
+    <p><strong>Theme designer: inspect and improve</strong></p>
+    <ul>
+        <li>Expand <strong>Rendered preview HTML</strong> and use <strong>Copy HTML</strong> to inspect an example. If automatic copying is unavailable, copy the selected text with your keyboard. The markup includes gallery adjustments; it is not the original Smarty template.</li>
+        <li>With cssHolmes and the appropriate permissions, use <strong>Open theme designer</strong> to preview style changes. <strong>Save to theme</strong> publishes them and can affect visitors.</li>
+        <li>Comparison and responsive frames show published styles, not unsaved designer drafts. Use <strong>Refresh previews</strong> after publishing.</li>
+        <li>Add custom components to <strong>Theme examples</strong> using the descriptor and template walkthrough in the full tutorial.</li>
+    </ul>
+    </div>
 
-    <h4 class="odd">TUTORIAL</h4> <br>
+    <h4 class="odd">TUTORIAL</h4><br>
+    <div class="even">
+    <p><a href="<{$xoops_url|escape}>/modules/<{$smarty.const._MI_XSTYLES_DIRNAME|escape}>/docs/TUTORIAL.md">Read the illustrated xStyles tutorial (Markdown)</a> for step-by-step beginner, advanced, and theme-designer walkthroughs, screenshots, and troubleshooting. The guide is included in <code>docs/TUTORIAL.md</code>.</p>
+    </div>
 
-    <p class="even">
-        Tutorial has been started, but we might need your help! Please check out the status of the tutorial <a href="https://www.gitbook.com/book/xoops/ZZZZZZZZ-tutorial/" target="_blank">here </a>.
-        <br><br>To contribute to this Tutorial, <a href="https://github.com/XoopsDocs/ZZZZZZZZ-tutorial/" target="_blank">please fork it on GitHub</a>.
-        <br> This document describes our <a href="https://www.gitbook.com/book/xoops/xoops-documentation-process/details/" target="_blank">Documentation Process</a> and it will help you to understand how to contribute.
-        <br><br>
-        There are more XOOPS Tutorials, so check them out in our <a href="https://www.gitbook.com/@xoops/" target="_blank">XOOPS Tutorial Repository on GitBook</a>.
-    </p>
+    <h4 class="odd">TRANSLATIONS</h4><br>
+    <p class="even">Translations are on <a href="https://www.transifex.com/xoops/">Transifex</a> and in the <a href="https://github.com/XoopsLanguages/">XOOPS Languages Repository on GitHub</a>.</p>
 
-
-    <h4 class="odd">TRANSLATIONS</h4> <br>
-    <p class="even">
-        Translations are on <a href="https://www.transifex.com/xoops/" target="_blank">Transifex</a> and in our <a href="https://github.com/XoopsLanguages/" target="_blank">XOOPS Languages Repository on GitHub</a>.</p>
-
-    <h4 class="odd">SUPPORT</h4> <br>
-    <p class="even">
-        If you have questions about this module and need help, you can visit our <a href="https://xoops.org/modules/newbb/viewforum.php?forum=28/" target="_blank">Support Forums on XOOPS Website</a></p>
-
-    <h4 class="odd">DEVELOPMENT</h4> <br>
-    <p class="even">
-        This module is Open Source and we would love your help in making it better! You can fork this module on <a href="https://github.com/XoopsModules25x/ZZZZZZZZ" target="_blank">GitHub</a><br><br>
-        But there is more happening on GitHub:<br><br>
-        - <a href="https://github.com/xoops" target="_blank">XOOPS Core</a> <br>
-        - <a href="https://github.com/XoopsModules25x" target="_blank">XOOPS Modules</a><br>
-        - <a href="https://github.com/XoopsThemes" target="_blank">XOOPS Themes</a><br><br>
-        Go check it out, and <strong>GET INVOLVED</strong>
-
-    </p>
-
+    <h4 class="odd">SUPPORT</h4><br>
+    <p class="even">Visit the <a href="https://xoops.org/modules/newbb/viewforum.php?forum=28/">XOOPS support forum</a> for help.</p>
+    <h4 class="odd">DEVELOPMENT</h4><br>
+    <div class="even">
+        <p>xStyles is open source. Contributions to its examples, documentation, translations, and tests are welcome.</p>
+        <p>Explore the XOOPS projects on GitHub:</p>
+        <ul>
+            <li><a href="https://github.com/XOOPS">XOOPS Core</a></li>
+            <li><a href="https://github.com/XoopsModules27x">XOOPS Modules</a></li>
+            <li><a href="https://github.com/XoopsThemes">XOOPS Themes</a></li>
+        </ul>
+        <p>Go check it out, and <strong>GET INVOLVED</strong>.</p>
+    </div>
 </div>

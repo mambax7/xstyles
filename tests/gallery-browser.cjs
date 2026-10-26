@@ -1,0 +1,72 @@
+'use strict';
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const { execFileSync } = require('node:child_process');
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const root = path.resolve(__dirname, '..');
+const rendered = JSON.parse(execFileSync(process.env.PHP_BINARY || 'php', [path.join(__dirname, 'render-gallery.php'), process.env.XSTYLES_CORE || path.resolve(__dirname, '../../..')], { encoding: 'utf8' }));
+const asset = relative => fs.readFileSync(path.join(root, relative), 'utf8');
+(async () => {
+    const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+    try {
+        const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+        await page.addInitScript(() => Object.defineProperty(navigator, 'clipboard', { value: { writeText: async text => { window.copiedSource = text; } } }));
+        const errors = [], writes = [];
+        let blockFrames = false;
+        page.on('pageerror', error => errors.push(error.message));
+        await page.route('**/*', async route => {
+            const request = route.request(), url = new URL(request.url());
+            if (request.method() !== 'GET') writes.push(request.url());
+            if (url.origin !== 'https://gallery.test') return route.fulfill({ status: 200, body: '' });
+            const child = url.searchParams.has('preview_frame');
+            await route.fulfill({ contentType: 'text/html', headers: child && blockFrames ? { 'Content-Security-Policy': "frame-ancestors 'none'" } : {}, body: `<!doctype html><html data-theme="light"><head><style>*{box-sizing:border-box}body{background:white;color:black}${asset('assets/css/gallery.css')}</style></head><body>${rendered[child ? 'child' : 'parent']}<script>${asset('assets/js/gallery.js')}</script><script>${asset('assets/js/responsive.js')}</script></body></html>` });
+        });
+        await page.goto('https://gallery.test/modules/xstyles/index.php');
+        assert.deepEqual(await page.locator('[id]').evaluateAll(nodes => nodes.map(n => n.id).filter((id, index, ids) => ids.indexOf(id) !== index)), [], 'Example IDs collide with gallery controls');
+        assert.equal(await page.locator('.xs-example:visible').count(), 1);
+        assert.equal(await page.locator('[data-xs-view="compare"], [data-xs-compare], #xs-theme').count(), 0, 'No unavailable theme-switching controls');
+        assert.equal(await page.locator('#xs-preview-settings').count(), 1, 'Current-theme layout controls remain available');
+        await page.locator('[data-xs-example-link="xs-theme-card"]').click();
+        await page.locator('#xs-theme-card .xs-source > summary').click();
+        await page.locator('#xs-theme-card [data-xs-copy]').click();
+        assert.equal(await page.evaluate(() => window.copiedSource), await page.locator('#xs-theme-card-source').textContent());
+        assert.match(await page.evaluate(() => window.copiedSource), /<article/);
+        assert.equal(await page.locator('iframe').count(), 0);
+        await page.locator('[data-xs-responsive] > summary').click();
+        await page.waitForFunction(() => document.querySelector('iframe')?.contentWindow.innerWidth === 360);
+        assert.equal(await page.locator('iframe').count(), 1);
+        await page.selectOption('[data-xs-width]', 'all');
+        await page.waitForFunction(() => [...document.querySelectorAll('iframe')].length === 3 && [...document.querySelectorAll('iframe')].every(f => f.contentDocument?.querySelector('#xs-gallery')));
+        assert.deepEqual(await page.locator('iframe').evaluateAll(frames => frames.map(f => f.contentWindow.innerWidth)), [360, 768, 1280]);
+        assert.deepEqual(await page.locator('iframe').evaluateAll(frames => frames.map(f => f.contentWindow.matchMedia('(max-width: 575px)').matches)), [true, false, false]);
+        assert.equal(await page.locator('iframe').evaluateAll(frames => frames.every(f => !f.contentDocument.querySelector('iframe, [data-xs-responsive], [data-cssholmes-designer]'))), true);
+        assert.equal(await page.locator('iframe').evaluateAll(frames => frames.every(f => !new URL(f.src).searchParams.has('xoops_theme_select'))), true);
+        await page.locator('[data-xs-refresh]').click();
+        await page.waitForFunction(() => [...document.querySelectorAll('iframe')].every(f => f.contentDocument?.querySelector('#xs-gallery')));
+        await page.locator('[data-xs-responsive] > summary').click();
+        await page.waitForFunction(() => !document.querySelector('iframe'));
+        await page.locator('#xs-filter').fill('Core form tabs');
+        assert.equal(await page.locator('#xs-tabbed-form').isVisible(), true);
+        await page.locator('#xs-filter').press('Escape');
+        const tabs = page.locator('#xs-tabbed-form .xs-specimen .xoops-tabnav a');
+        assert.equal(await tabs.count(), 2);
+        await tabs.nth(1).click();
+        assert.equal(await tabs.nth(1).getAttribute('aria-selected'), 'true');
+        await page.locator('#xs_tabs_required').fill('Preview only');
+        // Every generated form is intercepted even when a renderer adds its own handlers.
+        await page.locator('form[data-xs-demo-form]').first().evaluate(form => form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })));
+        assert.deepEqual(writes, []);
+        assert.deepEqual(errors, []);
+        // Explicit mode previews keep all documented conventions consistent.
+        await page.evaluate(() => document.querySelector('#xs-gallery').dataset.xsMode = 'dark');
+        await page.addScriptTag({ content: asset('assets/js/gallery.js') });
+        assert.equal(await page.locator('html').getAttribute('data-theme'), 'dark');
+        assert.equal(await page.locator('html').getAttribute('data-bs-theme'), 'dark');
+        blockFrames = true;
+        await page.locator('[data-xs-responsive] > summary').click();
+        await page.waitForFunction(() => [...document.querySelectorAll('[data-xs-frames] [role="status"]')].some(node => node.textContent.includes('Preview unavailable')));
+        assert.equal(await page.getByRole('link', { name: 'Open preview', exact: true }).isVisible(), true);
+        console.log('Gallery browser: real Smarty fixtures, viewport widths/media queries, no recursion/writes, filter, XTF mode passed.');
+    } finally { await browser.close(); }
+})().catch(error => { console.error(error); process.exitCode = 1; });

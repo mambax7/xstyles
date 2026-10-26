@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * You may not change or alter any portion of this comment or credits
@@ -11,31 +11,31 @@
  */
 
 /**
- * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @package
- * @since
+ * @copyright    2000-2026 XOOPS Project (https://xoops.org)
+ * @license      GNU GPL 2.0 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author       XOOPS Development Team
  */
 
-use XoopsModules\Xstyles;
+use Xmf\Module\Admin;
 
-include __DIR__ . '/../preloads/autoloader.php';
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
-$helper     = Xstyles\Helper::getInstance();
-$pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
-//$pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-
-$adminObject = \Xmf\Module\Admin::getInstance();
-
-$adminmenu[] = [
-    'title' => _AM_MODULEADMIN_HOME,
-    'link'  => 'admin/index.php',
-    'icon'  => $pathIcon32 . '/home.png'
-];
-
-$adminmenu[] = [
-    'title' => _AM_MODULEADMIN_ABOUT,
-    'link'  => 'admin/about.php',
-    'icon'  => $pathIcon32 . '/about.png'
+xoops_loadLanguage('modinfo', basename(dirname(__DIR__)));
+$pathIcon32 = Admin::menuIconPath('');
+$adminmenu = [
+    [
+        'title' => _MI_XSTYLES_OVERVIEW,
+        'link' => 'admin/index.php',
+        'icon' => $pathIcon32 . '/home.png',
+    ],
+    [
+        'title' => _MI_XSTYLES_ADMIN_GALLERY,
+        'link' => 'admin/gallery.php',
+        'icon' => $pathIcon32 . '/view_detailed.png',
+    ],
+    [
+        'title' => _MI_XSTYLES_ABOUT,
+        'link' => 'admin/about.php',
+        'icon' => $pathIcon32 . '/about.png',
+    ],
 ];
