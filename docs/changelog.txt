@@ -1,3 +1,45 @@
+<h5>1.5.0 Beta 2    2026-10-25</h5>
+<hr>
+- Add optional Qodana inspections and setup documentation; exclude scan configuration and reports from releases.
+- Use shared xoops_lib testing and quality tools; remove the module-local Composer manifest and vendor tree, and install CI tools outside the checkout.
+- Verify core fixtures and lifecycle callbacks on XOOPS 2.7.4 / Smarty 4; clarify that frontend theme switching requires the newer request-only override.
+- Adopt the XOOPS 2.7 module-devops quality gate, PHP 8.2–8.5 CI, dependency updates and QA-gated releases for XoopsModules27x/xstyles.
+- Remove unused legacy icons, duplicate root images, extras stylesheet and prototype; custom templates must use assets/images/ for retained images.
+- Include the illustrated tutorial; exclude private docs/00 notes and development tooling from releases.
+- Combine workspace navigation with side-by-side comparison in both galleries; focus one example at a time and keep preview details collapsible.
+- Share rounded controls and rendered-HTML panels across frontend and admin without restyling example controls.
+- Align comparison theme selectors with their panes and center shared controls; improve spacing and remove the redundant default-renderer line.
+- Scroll only the preview document when selecting an example, preserving the outer comparison toolbar position.
+- Open standalone previews with full gallery controls; retain embedded mode only inside preview panes.
+- Add request-only admin theme links and isolated side-by-side comparisons in both galleries.
+- Preserve public preview choices without changing the visitor session theme (requires the core module theme override).
+- Add seven Bootstrap 6 Alpha examples using the selected theme's existing assets.
+- Load the core colour picker's jQuery dependency before Spectrum in advanced form examples.
+- Order tabs Home, Admin styles, About, Help; use the standard Go to module link.
+- Clarify that switching admin themes restyles the same sample content; label the combined filter All elements.
+- Restore the Home dashboard with standard module tiles, current configuration checks and server status.
+- Describe xStyles as a living style guide and use examples in user-facing labels.
+- Add navigation, card and content specimens to xbootstrap5 and mytheme6.
+- Add an authorized admin-theme gallery reusing 21 core specimens.
+- Verify both theme specimens through the cssHolmes save/publish/import/reset workflow.
+- Add explicit screenshot capture/comparison, Firefox and real Arabic-locale checks.
+
+- Preserve data attributes and quoted text when neutralizing preview markup.
+- Keep colour previews consistent after theme initialization; support explicit mode mappings.
+- Register bounded, isolated theme-supplied specimens through a JSON descriptor.
+- Show observed core form-label defects and clarify preview source, session and RTL behavior.
+- Share request normalization and exclude tests/development notes from release archives.
+
+<h5>1.3.0    2026-04-25</h5>
+<hr>
+- Add a direct-access guard before the manifest autoloader bootstrap.
+- Escape help header template URL/title/alt output.
+- Use language constants for manifest name and description.
+- Declare xStyles as a schema-free module with an empty table list.
+- Document the xLanguage compatibility marker and extras stylesheet role.
+- Harden Common database helper SQL assembly with identifier validation, value
+  quoting, and two-part result guards.
+
 <h5>1.03 Beta 1    [NOT RELEASED]</h5>  Dev: Xoops 2.5.9, PHP 7.2.3
 <hr>
 - namespaces, autoloading (mamba)
