@@ -2,6 +2,12 @@
     <header class="xs-example-header">
         <h2 id="xs-title-<{$xs_sample.id|escape}>"><a href="<{if $xs_sample.url|default:''}><{$xs_sample.url|escape}><{else}>#<{$xs_sample.id|escape}><{/if}>"><{$xs_sample.title|escape}></a></h2>
         <p class="xs-selector"><code><{$xs_sample.selector|escape}></code></p>
+        <{if $cssholmes_designer_available|default:false && !$xs_admin|default:false && !$xs_preview_frame|default:false}>
+            <p class="xs-designer-actions" hidden>
+                <button type="button" data-xs-inspect><{$smarty.const._MD_XSTYLES_INSPECT_ELEMENT|escape}></button>
+                <button type="button" data-xs-edit><{$smarty.const._MD_XSTYLES_EDIT_STYLES|escape}></button>
+            </p>
+        <{/if}>
         <{if $xs_sample.section == 'blocks'}><p><{$smarty.const._MD_XSTYLES_MENU_ID_NOTE|escape}></p><{/if}>
     </header>
     <{if $xs_sample.issues|default:[]}>

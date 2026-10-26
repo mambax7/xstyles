@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Add permission-aware cssHolmes Inspect/Edit actions to frontend examples and a preview URL for private draft comparisons and responsive previews.
+
 ## 1.5.0 Beta 2 - 2026-10-25
 
 - Share workspace navigation, rounded controls and rendered-HTML panels across frontend and admin galleries.

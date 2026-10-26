@@ -75,6 +75,12 @@ gallery links to its accessibility, HTML5 and layout profiles using its
 configured query key. xStyles neither grants permissions nor duplicates the
 inspector.
 
+With cssHolmes designer permissions, frontend examples also offer **Inspect
+example** and **Edit styles**. Its **Preview your changes** panel compares
+published styles with an unsaved draft or previews the draft at 360, 768 and
+1280 pixels. Only **Save to theme** publishes changes; ordinary theme comparison
+frames continue to show published styles. See the [tutorial](docs/TUTORIAL.md#work-with-cssholmes).
+
 ## Templates and assets
 
 All templates are registered in `xoops_version.php` and resolved through the

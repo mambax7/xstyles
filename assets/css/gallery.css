@@ -169,3 +169,9 @@
     #xs-gallery.xs-workbench .xs-specimen { padding: 12px; }
     #xs-gallery .xs-comparison { padding: 12px; }
 }
+
+/* Designer actions belong to workspace controls, never to the example content. */
+#xs-gallery .xs-designer-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#xs-gallery .xs-designer-actions[hidden] { display: none; }
+#xs-gallery .xs-designer-actions button { font: 600 13px/1.5 system-ui, sans-serif; padding: 7px 12px; border: 1px solid var(--xs-ui-line, #cbd2df); border-radius: var(--xs-ui-radius, 8px); background: #fff; color: var(--xs-ui-accent, #284f87); cursor: pointer; }
+#xs-gallery .xs-designer-actions button:focus-visible { outline: 3px solid #518ce9; outline-offset: 3px; }
