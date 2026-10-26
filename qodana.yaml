@@ -1,0 +1,22 @@
+version: "1.0"
+
+image: jetbrains/qodana-php:2026.2
+
+profile:
+  name: qodana.recommended
+
+php:
+  version: "8.2"
+
+# Analyse module code without installing another development vendor tree.
+exclude:
+  - name: All
+    paths:
+      - vendor
+      - node_modules
+      - .build
+      - .qodana
+      - coverage
+      - docs/00
+      - templates_c
+      - uploads

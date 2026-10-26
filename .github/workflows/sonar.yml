@@ -1,0 +1,47 @@
+# Optional SonarCloud analysis — XOOPS module DevOps baseline.
+#
+# OPT-IN security/SAST + quality dashboard. This COMPLEMENTS (does not replace) the
+# shared-tool quality gate in ci.yml. It stays inert until a `SONAR_TOKEN` repo Actions secret
+# is set — so it's a no-op for modules that don't use SonarCloud and for fork PRs.
+#
+# To enable: import the repo in SonarCloud, set sonar.organization / sonar.projectKey in
+# sonar-project.properties, and add the SONAR_TOKEN secret. See README "GitHub automation".
+name: SonarCloud
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    steps:
+      - name: Gate on SONAR_TOKEN (opt-in)
+        id: gate
+        run: |
+          if [ -n "$SONAR_TOKEN" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::SONAR_TOKEN not set — SonarCloud scan skipped (this analysis is opt-in)."
+          fi
+
+      - if: steps.gate.outputs.enabled == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0            # full history for accurate new-code / blame detection
+          persist-credentials: false
+
+      - if: steps.gate.outputs.enabled == 'true'
+        name: SonarCloud scan
+        uses: SonarSource/sonarqube-scan-action@d209202bc7d53ff1cc128f7f907dac145c9d6ae9 # v8.3.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io

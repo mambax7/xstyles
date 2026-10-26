@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    PHPUnit configuration — XOOPS module DevOps baseline.
+    Profile: XoopsCore27 / PHP 8.2+   Overlay version: 1.1.0
+    xoops-overlay:profile=core27
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
+         bootstrap="tests/bootstrap.php"
+         cacheDirectory=".build/phpunit"
+         executionOrder="depends,defects"
+         colors="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         beStrictAboutOutputDuringTests="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <!--
+        Regression scripts run in separate PHP processes to isolate XOOPS test doubles.
+        Parent-process coverage would not measure those scripts, so no coverage report
+        is advertised. Add instrumented child-process coverage before enabling reports.
+    -->
+
+    <php>
+        <ini name="display_errors" value="1"/>
+        <ini name="error_reporting" value="-1"/>
+        <env name="APP_ENV" value="testing"/>
+        <!-- XSTYLES_CORE optionally enables isolated, database-free core fixture tests. -->
+    </php>
+</phpunit>
