@@ -1,5 +1,7 @@
 <?php
 
+define('_AM_XSTYLES_GALLERY', 'Admin theme styles');
+
 define('_AM_XSTYLES_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
 define('_AM_XSTYLES_UPGRADEFAILED1', "Update failed - couldn't add new fields");
 define('_AM_XSTYLES_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");

@@ -1,0 +1,6 @@
+reviews:
+  auto_review:
+    base_branches:
+      - '^review/gallery-components$'
+      - '^review/gallery-integration$'
+      - '^review/cleanup-documentation$'
