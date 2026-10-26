@@ -106,7 +106,11 @@ on both tested cores, XOOPS 2.7.4 and 2.8.
 
 ### Compare two themes side by side
 
-1. Click **Compare themes** at the top of either gallery.
+These steps apply to **Admin styles** on XOOPS 2.7.4 and 2.8. In the public
+gallery, comparison requires a core providing `xoops_resolveModuleTheme`, such
+as XOOPS 2.8. The public gallery on XOOPS 2.7.4 does not offer this control.
+
+1. Click **Compare themes** at the top of **Admin styles** or a supported public gallery.
 2. Choose **First theme** above the left pane and **Second theme** above the right.
 3. Choose a category under **Example sections**. Try **Tables** or **Forms** first.
 4. Choose a shared **Viewport**: **360 px**, **768 px** or **1280 px**. Changes to
