@@ -5,7 +5,7 @@ const path = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const script = fs.readFileSync(path.join(__dirname, '../assets/js/gallery.js'), 'utf8');
 (async () => {
-    const browser = await chromium.launch({ headless: true, executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
+    const browser = await chromium.launch({ headless: true, ...(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
     try {
         const page = await browser.newPage({ colorScheme: 'light' });
         const errors = [];

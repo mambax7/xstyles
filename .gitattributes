@@ -42,3 +42,4 @@
 /qodana.yaml export-ignore
 /docs/QODANA.md export-ignore
 /.github/workflows/qodana.yml export-ignore
+/.coderabbit.yaml export-ignore

@@ -23,6 +23,9 @@ namespace XoopsModules\Xstyles;
  */
 class Helper extends \Xmf\Module\Helper
 {
+    /** @var bool Public for compatibility with existing module integrations. */
+    public $debug;
+
     public function __construct(bool $debug = false)
     {
         $moduleDirName = \basename(\dirname(__DIR__));
@@ -41,5 +44,13 @@ class Helper extends \Xmf\Module\Helper
     public function getDirname(): string
     {
         return $this->dirname;
+    }
+
+    /** @param string $name */
+    public function getHandler($name): object
+    {
+        $class = __NAMESPACE__ . '\\' . $name . 'Handler';
+
+        return new $class(\XoopsDatabaseFactory::getDatabaseConnection());
     }
 }

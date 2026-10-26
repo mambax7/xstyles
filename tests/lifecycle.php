@@ -69,6 +69,10 @@ try {
         assert($callback($module), $callback . ' should succeed.');
         assert($snapshot() === $before, $callback . ' must leave files and directories untouched.');
     }
+    foreach ([null, 103, 1.03, '1.03', '1.5.0-beta.2'] as $version) {
+        assert(xoops_module_update_xstyles($module, $version));
+        assert($snapshot() === $before, 'Legacy version values must not change stored data.');
+    }
     mkdir($root . '/uploads/xstyles');
     file_put_contents($root . '/uploads/xstyles/historical.txt', 'Keep historical uploads.');
     $before = $snapshot();

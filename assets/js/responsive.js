@@ -46,6 +46,7 @@
         choice.addEventListener('change', render);
         controls.querySelector('[data-xs-refresh]').addEventListener('click', render);
         window.addEventListener('pagehide', clear);
+        window.addEventListener('pageshow', event => { if (event.persisted) render(); });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
     else init();

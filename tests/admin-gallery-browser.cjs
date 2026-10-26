@@ -11,7 +11,7 @@ const home = execFileSync(process.env.PHP_BINARY || 'php', [path.join(__dirname,
 const engine = process.env.XSTYLES_BROWSER || 'chromium';
 assert.ok(['chromium', 'firefox'].includes(engine));
 (async () => {
-    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' ? { executablePath: process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}) });
+    const browser = await playwright[engine].launch({ headless: true, ...(engine === 'chromium' && process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH } : {}) });
     try {
         const page = await browser.newPage({ viewport: { width: 1280, height: 960 } }), errors = [], writes = [];
         page.on('pageerror', error => errors.push(error.message));
@@ -59,14 +59,39 @@ assert.ok(['chromium', 'firefox'].includes(engine));
             fs.mkdirSync(process.env.XSTYLES_SCREENSHOT_DIR, { recursive: true });
             await page.locator('#xs-gallery').screenshot({ path: path.join(process.env.XSTYLES_SCREENSHOT_DIR, `admin-${engine}-workspace.png`) });
         }
-        await page.locator('[data-xs-specimen] form').first().evaluate(form => form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })));
+        assert.equal(await page.locator('[data-xs-specimen] form').first().evaluate(form => {
+            const event = new Event('submit', { bubbles: true, cancelable: true });
+            form.dispatchEvent(event);
+            return event.defaultPrevented;
+        }), true, 'Admin demo form submission must be cancelled');
         assert.match(page.url(), /admin\/gallery\.php\?section=forms/);
         await page.locator('.xs-view-switch [data-xs-view="compare"]').click();
         await page.waitForFunction(() => [...document.querySelectorAll('[data-xs-compare-status]')].every(node => node.textContent === 'Published preview loaded'));
         assert.deepEqual(await page.locator('[data-xs-compare] iframe').evaluateAll(frames => frames.map(frame => frame.contentWindow.innerWidth)), [768, 768]);
         assert.deepEqual(await page.locator('[data-xs-compare] iframe').evaluateAll(frames => frames.map(frame => frame.contentDocument.querySelector('.xs-context code').textContent)), ['modern', 'default']);
+        await page.selectOption('[data-xs-compare-theme="1"]', 'modern');
+        assert.deepEqual(await page.locator('[data-xs-compare-theme]').evaluateAll(nodes => nodes.map(node => node.value)), ['default', 'modern'], 'Choosing the same theme swaps the other pane');
+        await page.selectOption('[data-xs-compare-theme="0"]', 'modern');
+        assert.deepEqual(await page.locator('[data-xs-compare-theme]').evaluateAll(nodes => nodes.map(node => node.value)), ['modern', 'default']);
+        await page.evaluate(() => {
+            window.obsoletePreview = document.querySelectorAll('[data-xs-compare] iframe')[1];
+        });
         await page.selectOption('[data-xs-compare-theme="1"]', 'dark');
         await page.waitForFunction(() => document.querySelectorAll('[data-xs-compare] iframe')[1]?.contentDocument?.querySelector('.xs-context code')?.textContent === 'dark');
+        await page.waitForFunction(() => [...document.querySelectorAll('[data-xs-compare-status]')].every(node => node.textContent === 'Published preview loaded'));
+        const currentPreview = await page.locator('[data-xs-compare-pane]').nth(1).innerText();
+        await page.evaluate(() => {
+            Object.defineProperty(window.obsoletePreview, 'contentDocument', {
+                value: new DOMParser().parseFromString('<div id="xs-gallery" data-xs-theme="default"></div>', 'text/html')
+            });
+            window.obsoletePreview.dispatchEvent(new Event('load'));
+        });
+        assert.equal(await page.locator('[data-xs-compare-theme="1"]').inputValue(), 'dark', 'A removed frame must not restore its old theme');
+        assert.equal(await page.locator('[data-xs-compare-pane]').nth(1).innerText(), currentPreview, 'A stale load must not change the current caption or status');
+        await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })));
+        assert.equal(await page.locator('[data-xs-compare] iframe').count(), 0);
+        await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })));
+        await page.waitForFunction(() => document.querySelectorAll('[data-xs-compare] iframe').length === 2 && [...document.querySelectorAll('[data-xs-compare-status]')].every(node => node.textContent === 'Published preview loaded'));
         for (const frame of page.frames().filter(frame => frame.url().includes('preview_frame=1'))) {
             assert.equal(await frame.locator('[data-xs-compare]').count(), 0);
             assert.equal(await frame.locator('.xs-example').count(), 5);
