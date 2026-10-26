@@ -30,7 +30,11 @@ $check(Gallery::zoneMode('1') === 'all', 'Simple zones=1 link supported');
 $check(Gallery::zoneMode('empty') === 'empty', 'Empty-zone collapse can be tested');
 $check(Gallery::choice(['rtl'], ['theme', 'ltr', 'rtl'], 'theme') === 'theme', 'Array query rejected');
 $check(Gallery::choice('rtl', ['theme', 'ltr', 'rtl'], 'theme') === 'rtl', 'Allowed preview selected');
-$check(count(Gallery::zoneNames()) === 12, 'All local core zones represented');
+$check(Gallery::zoneNames() === [
+    'canvas_left', 'canvas_right', 'page_topleft', 'page_topcenter',
+    'page_topright', 'page_bottomleft', 'page_bottomcenter', 'page_bottomright',
+    'footer_left', 'footer_center', 'footer_right', 'footer_all',
+], 'Zone names must match the core theme contract');
 $blocks = Gallery::zoneBlocks('all', 'Sample', '<p>Fixed content</p>');
 $check(count($blocks) === 12, 'Each zone populated');
 $ids = [];

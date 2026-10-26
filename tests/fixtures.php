@@ -120,7 +120,6 @@ XoopsPreload::getInstance()->_events['coreclasstemplatenew'][] = ['class_name' =
 require XOOPS_ROOT_PATH . '/class/template.php';
 require XSTYLES_TEST_MODULE . '/language/english/main.php';
 require_once XSTYLES_TEST_MODULE . '/language/english/fixtures.php';
-require_once XSTYLES_TEST_MODULE . '/language/english/bootstrap5.php';
 require XSTYLES_TEST_MODULE . '/class/Fixtures.php';
 
 function check(bool $condition, string $message): void
@@ -130,6 +129,13 @@ function check(bool $condition, string $message): void
     }
 }
 $template = new XoopsTpl();
+check(! defined('_MD_XSTYLES_BS5_BUTTONS'), 'Optional labels must not be loaded before this regression check');
+check(count(XoopsModules\Xstyles\Fixtures::build('typography', $template, XOOPS_URL . '/modules/xstyles')) === 4, 'Typography must not require optional Bootstrap labels');
+require_once XSTYLES_TEST_MODULE . '/language/english/bootstrap5.php';
+preg_match_all('/smarty\.const\.([A-Z][A-Z0-9_]+)/', file_get_contents(XSTYLES_TEST_MODULE . '/templates/xstyles_fixture_bootstrap6.tpl'), $bootstrap6Constants);
+foreach ($bootstrap6Constants[1] as $constant) {
+    check(defined($constant), 'Bootstrap 6 template uses an undefined constant: ' . $constant);
+}
 $template->assign(['block' => ['host' => 'keep'], 'xoops_isadmin' => true, 'xoops_isuser' => true, 'comment' => ['host' => 'keep'], 'xoops_upload_url' => 'https://host.invalid/uploads']);
 $before = $template->getTemplateVars();
 $samples = XoopsModules\Xstyles\Fixtures::build('all', $template, XOOPS_URL . '/modules/xstyles');
@@ -335,6 +341,8 @@ file_put_contents($themeDirectory . '/modules/xstyles/specimens.json', json_enco
     'version' => 1, 'specimens' => [
         ['id' => 'card', 'title' => '<b>Card</b>', 'selector' => '.card', 'template' => 'specimens/card.tpl'],
         ['id' => 'card-heading', 'title' => 'Another card', 'selector' => '.card', 'template' => 'specimens/card.tpl'],
+        ['id' => 'card-source', 'title' => 'Source card', 'selector' => '.card', 'template' => 'specimens/card.tpl'],
+        ['id' => 'card-title', 'title' => 'Title card', 'selector' => '.card', 'template' => 'specimens/card.tpl'],
         ['id' => 'broken', 'title' => 'Broken', 'selector' => '', 'template' => 'specimens/broken.tpl'],
     ],
 ], JSON_THROW_ON_ERROR));
@@ -343,7 +351,7 @@ file_put_contents($themeDirectory . '/modules/xstyles/specimens/broken.tpl', '<{
 $definitions = XoopsModules\Xstyles\ThemeSpecimens::load($themeDirectory);
 $templateBefore = $template->getTemplateVars();
 $themeOutput = XoopsModules\Xstyles\Fixtures::theme($definitions['samples'], XOOPS_URL . '/modules/xstyles', XOOPS_URL . '/themes/example');
-check(count($themeOutput['samples']) === 2 && count($themeOutput['errors']) === 1, 'Theme template failure must be isolated');
+check(count($themeOutput['samples']) === 4 && count($themeOutput['errors']) === 1, 'Theme template failure must be isolated');
 check($templateBefore === $template->getTemplateVars(), 'Theme template assignments leaked');
 $themeHtml = $themeOutput['samples'][0]['html'];
 check(str_contains($themeHtml, 'id="xs-theme-card_heading"') && str_contains($themeHtml, 'aria-labelledby="xs-theme-card_heading"'), 'Theme IDs/references must stay linked');
@@ -353,5 +361,15 @@ $frame->assign('xs_samples', [$themeOutput['samples'][0] + ['url' => '#xs-theme-
 check(! str_contains($frame->fetch('db:xstyles_index.tpl'), '<b>Card</b>'), 'Theme metadata was interpreted as HTML');
 check(str_contains($frame->fetch('db:xstyles_index.tpl'), 'id="xs-theme-card_source"'), 'Inner ID must use a separate namespace from the source panel');
 check(! str_contains($themeOutput['errors'][0], XOOPS_VAR_PATH), 'Template failure exposed a private path');
+$exampleMarkup = '';
+foreach ($themeOutput['samples'] as $sample) {
+    $frame->assign('xs_sample', $sample + ['url' => '#' . $sample['id']]);
+    $exampleMarkup .= $frame->fetch('db:xstyles_example.tpl');
+}
+preg_match_all('/\sid="([^"]+)"/', $exampleMarkup, $exampleIds);
+check(count($exampleIds[1]) === count(array_unique($exampleIds[1])), 'Descriptor IDs must not collide with title or source controls');
+$frame->assign('xs_sample', $themeOutput['samples'][0]);
+$standaloneExample = $frame->fetch('db:xstyles_example.tpl');
+check(str_contains($standaloneExample, 'href="#xs-theme-card"'), 'Samples without a controller URL must link to their own section');
 
 echo "Real-core fixture integration passed: 40 core/Bootstrap samples, scoped renderers, theme descriptor/rendering/error isolation, inert actions, unique IDs, label diagnostics, escaping and registration.\n";
