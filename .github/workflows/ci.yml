@@ -46,11 +46,12 @@ jobs:
           mkdir -p "$XOOPS_TOOLS"
           composer --working-dir="$XOOPS_TOOLS" init --name=xoops/ci-tools --no-interaction
           composer --working-dir="$XOOPS_TOOLS" config allow-plugins.phpstan/extension-installer true
+          # rector-xoops alpha1 uses a configurable rule removed in Rector 2.8.
           composer --working-dir="$XOOPS_TOOLS" require --dev --no-interaction --no-progress \
             'phpunit/phpunit:^11.5' 'friendsofphp/php-cs-fixer:^3.64' \
             'phpstan/phpstan:^2.0' 'phpstan/extension-installer:^1.4' \
             'phpstan/phpstan-deprecation-rules:^2.0' 'phpstan/phpstan-strict-rules:^2.0' \
-            'rector/rector:^2.0' 'xoops/rector-xoops:^1.0@alpha' \
+            'rector/rector:~2.7.0' 'xoops/rector-xoops:^1.0@alpha' \
             'roave/security-advisories:dev-latest'
 
       - name: Quality gate
