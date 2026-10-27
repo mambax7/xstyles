@@ -184,15 +184,21 @@ tools and stores published design overrides.
 1. Log in with cssHolmes access. Its administrators have access; other groups
    need **Overlay** and **Edit** permissions to preview changes, plus **Workbench**
    permission to save them.
-2. Open the frontend gallery and choose **Open theme designer**, when available.
-3. Choose **Pick element**, then select an element inside the example. Check the
-   displayed selector and matching-element count before editing.
+2. Open the frontend gallery and choose **Inspect example** or **Edit styles**.
+   These select the first relevant element in that example. **Inspect example**
+   also opens token and contrast details; low-contrast results offer color controls.
+3. Choose **Pick element** to select another element inside the example. Check
+   the displayed selector and matching-element count before editing.
 4. Adjust a property, such as text colour or spacing. Prefer a reusable selector
    that also matches real pages, rather than a gallery-only `xs-…` ID.
-5. Inspect the result. **Discard draft** returns to the last saved state.
+5. Expand **Preview your changes**. Choose **Published vs draft** for a comparison,
+   or **Draft at three screen sizes** for 360, 768 and 1280-pixel previews. These
+   private panes update with edits, undo and redo. **Discard draft** returns to the last saved state.
    **Save to theme** publishes the draft for that theme and can affect visitors.
-6. After publishing, use **Refresh previews** in xStyles to check the result at
-   other widths and in comparisons. The designer stays outside embedded previews.
+6. Publishing refreshes the private panes. Use **Refresh previews** in ordinary
+   xStyles comparisons to check published changes there. The designer stays
+   outside embedded previews. Closing a private preview removes its frames;
+   navigating away loses unsaved changes.
 
 Saving a named set to the cssHolmes library is separate from publishing it to a
 theme. See the cssHolmes module documentation for configuration sets, exports,
@@ -253,7 +259,7 @@ collection. Users see the simpler label **Theme examples** in the gallery.
 | No matching examples. | Clear the search with **Escape**, or switch to **All elements** before searching again. |
 | Copy HTML does not copy automatically. | Use the selected source text and your keyboard's copy shortcut. Clipboard access can be restricted on HTTP sites. |
 | An embedded preview is unavailable. | Use **Open preview**. Site framing restrictions may prevent embedding. |
-| A published change is missing in a pane. | Click **Refresh previews**. Unsaved designer drafts are visible only in their original editing page. |
+| A published change is missing in a pane. | Click **Refresh previews**. To inspect unsaved changes, use cssHolmes' **Preview your changes** panel in the editing page. |
 | RTL or dark mode looks unchanged. | The theme needs compatible styles. Direction simulation alone does not load a real RTL language. |
 | A notice lists form labels without matching controls. | It reports a problem in the active core form renderer's output; xStyles deliberately leaves the output visible for inspection. |
 | Theme examples is empty. | Add a valid `modules/xstyles/specimens.json` and its templates to the theme being previewed. |

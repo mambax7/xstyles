@@ -1,5 +1,6 @@
 <div id="xs-gallery" class="xs-gallery<{if !$xs_preview_frame|default:false}> xs-workbench<{/if}>"<{if !$xs_preview_frame|default:false}> data-xs-workspace<{/if}> data-xs-theme="<{$xs_theme|escape}>" data-xs-mode="<{$xs_mode|escape}>" data-xs-direction="<{$xs_direction|escape}>"
      data-xs-mode-attributes="<{$xs_mode_attributes|default:'data-bs-theme data-theme data-mt-mode'|escape}>"
+     data-xs-preview-url="<{$xs_preview_url|default:''|escape}>"
      data-xs-copied="<{$smarty.const._MD_XSTYLES_COPIED|escape}>" data-xs-copy-failed="<{$smarty.const._MD_XSTYLES_COPY_FAILED|escape}>"
      data-xs-demo-notice="<{$smarty.const._MD_XSTYLES_DEMO_NOTICE|escape}>">
     <header class="xs-header">

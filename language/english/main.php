@@ -196,3 +196,6 @@ define('_MD_XSTYLES_BS6_MENU', 'Bootstrap 6 menu');
 define('_MD_XSTYLES_BS6_DIALOG', 'Bootstrap 6 dialog');
 define('_MD_XSTYLES_BS6_DRAWER', 'Bootstrap 6 drawer');
 define('_MD_XSTYLES_BS6_OPEN_DRAWER', 'Open demonstration drawer');
+
+define('_MD_XSTYLES_INSPECT_ELEMENT', 'Inspect example');
+define('_MD_XSTYLES_EDIT_STYLES', 'Edit styles');

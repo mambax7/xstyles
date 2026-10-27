@@ -371,5 +371,21 @@ check(count($exampleIds[1]) === count(array_unique($exampleIds[1])), 'Descriptor
 $frame->assign('xs_sample', $themeOutput['samples'][0]);
 $standaloneExample = $frame->fetch('db:xstyles_example.tpl');
 check(str_contains($standaloneExample, 'href="#xs-theme-card"'), 'Samples without a controller URL must link to their own section');
+$frame->assign(['cssholmes_designer_available' => true, 'xs_admin' => false, 'xs_preview_frame' => false]);
+$editableExample = $frame->fetch('db:xstyles_example.tpl');
+$actionDocument = new DOMDocument();
+$previousErrors = libxml_use_internal_errors(true);
+$actionDocument->loadHTML($editableExample);
+libxml_clear_errors();
+libxml_use_internal_errors($previousErrors);
+$actionXpath = new DOMXPath($actionDocument);
+check($actionXpath->query('//button[@type="button" and @data-xs-edit]')->length === 1
+    && $actionXpath->query('//button[@type="button" and @data-xs-inspect]')->length === 1, 'Authorized frontend examples offer designer buttons');
+$frame->assign('xs_preview_frame', true);
+check(! str_contains($frame->fetch('db:xstyles_example.tpl'), 'data-xs-edit'), 'Preview frames must not offer editing');
+$frame->assign(['xs_preview_frame' => false, 'xs_admin' => true]);
+check(! str_contains($frame->fetch('db:xstyles_example.tpl'), 'data-xs-edit'), 'Admin themes must not expose frontend publishing controls');
+$frame->assign(['cssholmes_designer_available' => false, 'xs_admin' => false]);
+check(! str_contains($frame->fetch('db:xstyles_example.tpl'), 'data-xs-edit'), 'Designer actions require editor capability');
 
 echo "Real-core fixture integration passed: 40 core/Bootstrap samples, scoped renderers, theme descriptor/rendering/error isolation, inert actions, unique IDs, label diagnostics, escaping and registration.\n";
