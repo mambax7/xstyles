@@ -18,8 +18,10 @@ for installation, compatibility and the optional cssHolmes integration.
 
 Isolated integration checks cover XOOPS 2.7.4 / Smarty 4.5.8 and XOOPS 2.8 /
 Smarty 5 using real core classes, templates, lifecycle callbacks and admin
-controllers without a database. A full database-backed installation/upgrade
-through the XOOPS 2.7 administrator still needs release testing.
+controllers without a database. The Beta 3 ZIP update was also checked through
+the real module updater on a disposable XOOPS 2.7.4-RC2 / PHP 8.4 site, including
+Home, Admin styles and the cssHolmes save/reload/restore workflow. A fresh
+installation of Beta 3 was not repeated in that smoke test.
 
 ## Use
 

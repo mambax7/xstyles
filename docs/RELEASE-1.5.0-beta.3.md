@@ -53,3 +53,11 @@ separate publishing action and can affect visitors.
 
 The installable ZIP excludes tests, development tools, private `docs/00` notes,
 and vendor dependencies. No module-local Composer installation is required.
+
+## Verification
+
+The PHP 8.2–8.5 CI matrix and frontend/admin browser regressions passed during
+release preparation. Isolated checks cover XOOPS 2.7 / Smarty 4 and XOOPS 2.8 /
+Smarty 5. The ZIP update and designer save/reload/restore workflow also passed
+on a disposable XOOPS 2.7.4-RC2 / PHP 8.4 site. This does not replace testing
+your own theme and modules; a fresh Beta 3 installation was not repeated.
