@@ -49,8 +49,11 @@ jobs:
           # Module dirname drives the ZIP name and the in-archive top folder.
           NAME="$(php tests/helpers/detect-dirname.php)"
           ZIP="${NAME}-${GITHUB_REF_NAME}.zip"
+          NOTES="docs/RELEASE-${GITHUB_REF_NAME#v}.md"
+          test -f "$NOTES" || { echo "Missing release notes: $NOTES" >&2; exit 1; }
           git archive --format=zip --prefix="${NAME}/" -o "$ZIP" HEAD
           echo "zip=$ZIP" >> "$GITHUB_OUTPUT"
+          echo "notes=$NOTES" >> "$GITHUB_OUTPUT"
 
       - name: Create / update GitHub Release
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
@@ -59,4 +62,5 @@ jobs:
           # Published version archives are immutable; corrections require a new tag.
           overwrite_files: false
           fail_on_unmatched_files: true
-          generate_release_notes: true
+          body_path: ${{ steps.archive.outputs.notes }}
+          prerelease: ${{ contains(github.ref_name, '-') }}

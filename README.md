@@ -1,4 +1,4 @@
-# xStyles 1.5
+# xStyles 1.5.0 Beta 3
 
 Preview how the current theme styles every common page element.
 
@@ -6,6 +6,9 @@ xStyles is a living style guide for XOOPS themes. It displays repeatable example
 using the active theme's real styles and form renderer. Designers may call this a
 "CSS specimen page": a collection of elements for checking their appearance together.
 The module creates no content tables, sample records or upload folders.
+
+This is a testing prerelease. See the [release notes](docs/RELEASE-1.5.0-beta.3.md)
+for installation, compatibility and the optional cssHolmes integration.
 
 ## Requirements
 

@@ -1,3 +1,9 @@
+<h5>1.5.0 Beta 3    2026-10-26</h5>
+<hr>
+- Connect frontend examples to permission-aware cssHolmes Inspect/Edit actions and private draft comparison/responsive previews.
+- Verify rendered designer controls and keep shared CI Rector compatible with the XOOPS rules.
+- Prepare a clean prerelease archive with tag-specific release notes; PHP 8.2+ remains sufficient for standalone xStyles, while optional cssHolmes 3.3 requires PHP 8.4+.
+
 <h5>1.5.0 Beta 2    2026-10-25</h5>
 <hr>
 - Add optional Qodana inspections and setup documentation; exclude scan configuration and reports from releases.

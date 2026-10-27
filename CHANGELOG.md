@@ -1,8 +1,10 @@
 # Changelog
 
-## Unreleased
+## 1.5.0 Beta 3 - 2026-10-26
 
 - Add permission-aware cssHolmes Inspect/Edit actions to frontend examples and a preview URL for private draft comparisons and responsive previews.
+- Verify rendered designer controls and keep the shared CI Rector version compatible with the XOOPS rules.
+- Prepare a clean prerelease package with tag-specific release notes and explicit prerelease classification.
 
 ## 1.5.0 Beta 2 - 2026-10-25
 

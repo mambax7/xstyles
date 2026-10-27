@@ -5,8 +5,8 @@ defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
 $moduleDirName = basename(__DIR__);
 
 $modversion['version'] = '1.5.0';
-$modversion['release_date'] = '2026/10/25';
-$modversion['module_status'] = 'Beta 2';
+$modversion['release_date'] = '2026/10/26';
+$modversion['module_status'] = 'Beta 3';
 $modversion['name'] = _MI_XSTYLES_NAME;
 $modversion['description'] = _MI_XSTYLES_DESC;
 $modversion['credits'] = 'Chewb - Christian - Dugris - Kris_fr - Mamba ';
