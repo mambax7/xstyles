@@ -373,7 +373,14 @@ $standaloneExample = $frame->fetch('db:xstyles_example.tpl');
 check(str_contains($standaloneExample, 'href="#xs-theme-card"'), 'Samples without a controller URL must link to their own section');
 $frame->assign(['cssholmes_designer_available' => true, 'xs_admin' => false, 'xs_preview_frame' => false]);
 $editableExample = $frame->fetch('db:xstyles_example.tpl');
-check(str_contains($editableExample, 'data-xs-edit') && str_contains($editableExample, 'data-xs-inspect'), 'Authorized frontend examples offer designer actions');
+$actionDocument = new DOMDocument();
+$previousErrors = libxml_use_internal_errors(true);
+$actionDocument->loadHTML($editableExample);
+libxml_clear_errors();
+libxml_use_internal_errors($previousErrors);
+$actionXpath = new DOMXPath($actionDocument);
+check($actionXpath->query('//button[@type="button" and @data-xs-edit]')->length === 1
+    && $actionXpath->query('//button[@type="button" and @data-xs-inspect]')->length === 1, 'Authorized frontend examples offer designer buttons');
 $frame->assign('xs_preview_frame', true);
 check(! str_contains($frame->fetch('db:xstyles_example.tpl'), 'data-xs-edit'), 'Preview frames must not offer editing');
 $frame->assign(['xs_preview_frame' => false, 'xs_admin' => true]);
